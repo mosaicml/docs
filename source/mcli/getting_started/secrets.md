@@ -389,7 +389,7 @@ The values for each of these queries can be passed as arguments using the --name
   "type": "service_account",
   "project_id": "<PROJECT_ID>",
   "private_key_id": "<KEY_ID>",
-  "private_key": "-----BEGIN PRIVATE KEY-----\n<PRIVATE_KEY>\n-----END PRIVATE KEY-----\n",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n<PRIVATE_KEY>\n-----END PRIVATE KEY-----\n",  // gitleaks:allow
   "client_email": "<SERVICE_ACCOUNT_EMAIL>",
   "client_id": "<CLIENT_ID>",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
