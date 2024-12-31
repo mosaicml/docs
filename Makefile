@@ -13,19 +13,29 @@ VENV_FOLDER	  = .venv
 PYTHON        = python3.10
 REQUIREMENTS  = requirements.txt
 
-# Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-clean:
+build: docs
+
+clean-py:
 	# python artifacts
 	find . -name "*.pyc" -delete
 	find . -name "__pycache__" -delete
 	rm -rf .cache dist build
 	rm -rf .coverage .pytest_cache
 
+clean-venv:
 	# virtual environment
 	rm -rf ${VENV_FOLDER}
+
+clean: clean-py clean-venv
+
+docs: clean-py venv
+	rm -rf .cache dist build
+	@. $(VENV_FOLDER)/bin/activate && \
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	cd $(BUILDDIR)/html && python3 -m http.server
 
 venv:
 	@if [ ! -d "$(VENV_FOLDER)" ]; then \
@@ -38,9 +48,6 @@ venv:
 		echo "Virtual environment already exists at $(VENV_FOLDER)"; \
 	fi
 
-docs: venv
-	@. $(VENV_FOLDER)/bin/activate && \
-	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 .PHONY: help Makefile clean-venv venv
 
