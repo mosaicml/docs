@@ -31,7 +31,7 @@ Users manually added to a Mosaic Organization are automatically assigned a gener
 - **Manage individual user's API keys:** Ability to create new API keys and user secrets
 - **Manage individual user's runs:** Ability to read, update, and delete their own runs
 - **Read Organization Runs:** Ability to read organizational runs (enabled if shared runs are active)
-- 
+
 ### `Administrator` Role
 A `user` can be promoted to an `administrator` role by an existing Mosaic Organization Administrator. The `administrator` role has access to:
 - **All `User` Permissions:** All permissions provided to the `User` role
@@ -50,7 +50,7 @@ A cluster is one or more nodes with the same type of GPU (e.g. H100-80GB) residi
   2. **Reserved Cluster:** Reserved clusters are dedicated 24x7 to a single customer and fully managed by Databricks.
 
 ### What are Runs?
-Runs are model training jobs. When you submit a run, the Databricks Mosaic AI Training Platform will request resources from the cluster. The status of a run can be managed through MCLI or the Python API, including creation, following, getting, stopping, and deleting the run.
+Runs are model training jobs. When you submit a run, the Databricks Mosaic AI Training Platform will request resources from the cluster. The status of a run can be managed through MCLI, including creation, following, getting, and stopping the run.
 
 #### What is the Run Lifecycle?
 | Run Status  | Details                                                                                                                                                                                                |
@@ -63,6 +63,7 @@ Runs are model training jobs. When you submit a run, the Databricks Mosaic AI Tr
 | Completed   | The run has executed the full command and finished without any errors.                                                                                                                                 |
 | Stopped     | The run started but did not complete. This state can be entered by stopping the run manually or during preemption                                                                                      |
 | Failed      | An error was raised during the execution of the run                                                                                                                                                    |
+
 ```{toctree}
 :maxdepth: 2
 :hidden:

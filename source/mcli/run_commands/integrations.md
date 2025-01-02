@@ -46,6 +46,7 @@ For information on each specific integration type, visit the page for that integ
 * [PyPi Packages](#pypi-packages)
 * [Weights & Biases](#weights-and-biases)
 
+(mcli/run_commands/integrations:apt-packages)=
 ### APT Packages
 
 The APT Packages integration installs APT packages in your run execution environment.
@@ -69,6 +70,7 @@ integrations:
       - python3-dev
 ```
 
+(mcli/run_commands/integrations:cometml)=
 ### CometML
 
 The [CometML](https://comet.com) (comet_ml) integration automatically sets the relevant environment variables that Comet relies on in the run execution environment.
@@ -263,27 +265,11 @@ This integration only sets up the environment, the logger itself must still be c
 This section will explain how to use MLflow for a run. To use this integration, set up your credentials with the [`databricks` secret](../getting_started/secrets.md#databricks).
 To use MLflow experiment tracking in a run, include the MLflow integration in your run config:
 
-````{tab-set-code}
-
-```{code-block} yaml
+```yaml
 integrations:
   - integration_type: mlflow
     experiment_name: /Users/example@domain.com/my_experiment
 ```
-
-```{code-block} python
-from mcli import RunConfig
-config = RunConfig(
-    ...
-    integrations=[
-        {
-         'integration_type': 'mlflow',
-         'experiment_name': '/Users/example@domain.com/my_experiment',
-        }
-    ],
-)
-```
-````
 
 - `experiment_name` (str, required): The name to use for the experiment. Databricks MLflow users see [this page](https://docs.databricks.com/en/mlflow/experiments.html) for more information about experiment and workspace organization (example Databricks experiment name: `/Users/<email>/<experiment_name>`).
 - `tracking_uri` (str, optional): Default is `databricks` , e.g. managed MLflow through Databricks
@@ -294,9 +280,7 @@ config = RunConfig(
 You do not have to have a Databricks managed MLflow account to use MLflow, however your run will be responsible for uploading the MLflow artifacts before the run terminates. 
 See the [MLflow documentation](https://mlflow.org/docs/latest/tracking.html) for options
 
-````{tab-set-code}
-
-```{code-block} yaml
+```yaml
 integrations:
   - integration_type: mlflow
     experiment_name: my_experiment
@@ -304,24 +288,9 @@ integrations:
     tracking_uri: file:/my/local/dir
 ```
 
-```{code-block} python
-from mcli import RunConfig
-config = RunConfig(
-    ...
-    integrations=[
-        {
-         'integration_type': 'mlflow',
-         'experiment_name': 'my_experiment',
-         'tracking_uri': 'file:/my/local/dir',  # See MLflow docs for all alternatives
-        }
-    ],
-)
-```
-````
-
-
 </details>
 
+(mcli/run_commands/integrations:pypi-packages)=
 ### PyPI Packages
 
 The PyPI Packages integration installs Python packages in your run execution environment.
@@ -351,8 +320,7 @@ integrations:
     upgrade: true
 ```
 
-
-
+(mcli/run_commands/integrations:weights-and-biases)=
 ### Weights and Biases
 
 The [Weights and Biases](https://wandb.ai) (WandB) integration automatically sets the

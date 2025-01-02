@@ -5,11 +5,9 @@ Our custom code training product gives you full customization for you to configu
 
 ## A quick example
 
-Here is a brief example of a YAML file and the Python SDK used to custom train a model on a dataset.
+Here is a brief example of a YAML file used to custom train a model on a dataset. You can submit this run using `mcli submit run -f hello_composer.yaml`:
 
-````{tab-set-code}
-
-```{code-block} yaml
+```yaml
 name: hello-composer
 image: mosaicml/pytorch:latest
 command: 'echo $MESSAGE'
@@ -26,29 +24,9 @@ env_variables:
   MESSAGE: "hello composer!"
 ```
 
-```{code-block} python
-from mcli import RunConfig
-config = RunConfig(
-    name='hello-composer',
-    image='mosaicml/pytorch:latest',
-    command='echo $MESSAGE',
-    compute={'gpus': 0},
-    scheduling={'priority': 'low'},
-    integrations=[
-        {
-         'integration_type': 'git_repo',
-         'git_repo': 'mosaicml/composer',
-         'git_branch': 'main'
-        }
-    ],
-    env_variables={'MESSAGE': 'hello composer!'},
-)
-```
-````
-
 ## Configure a custom code training run
 
-Run submissions to the Databricks Mosaic AI training platform can be configured through a YAML file or using our Python API's {class}`~mcli.RunConfig` class. The fields are identical across both methods:
+Run submissions to the Databricks Mosaic AI training platform can be configured through a YAML file.
 
 | Field                | Required | Type                                              | Description                                                                                                                                                                                                                           |
 | -------------------- | -------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +44,7 @@ Run submissions to the Databricks Mosaic AI training platform can be configured 
 ## Additional information about fields
 
 ### Image Field
-Images on [DockerHub](https://hub.docker.com) can be configured as `<organization>/<image name>`. While we maintain a set of public docker images for [PyTorch](https://hub.docker.com/r/mosaicml/pytorch), [PyTorch Vision](https://hub.docker.com/r/mosaicml/pytorch_vision), and [Composer](https://hub.docker.com/r/mosaicml/composer) on DockerHub that we encourage you to use and can be access using this `image` field in your YAML file or with Python, to pull from private Docker registries, use the [`docker` secret](../getting_started/secrets.md#docker). 
+Images on [DockerHub](https://hub.docker.com) can be configured as `<organization>/<image name>`. While we maintain a set of public docker images for [PyTorch](https://hub.docker.com/r/mosaicml/pytorch), [PyTorch Vision](https://hub.docker.com/r/mosaicml/pytorch_vision), and [Composer](https://hub.docker.com/r/mosaicml/composer) on DockerHub that we encourage you to use and can be access using this `image` field in your YAML file, to pull from private Docker registries, use the [`docker` secret](../getting_started/secrets.md#docker). 
 
 Note that while we default to DockerHub, custom registries are supported, see [Docker's documentation](https://docs.docker.com/engine/reference/commandline/pull/#pull-from-a-different-registry) and [Docker Secret Page](../getting_started/secrets.md#docker) for more details.
 
@@ -85,7 +63,7 @@ If those resources are not valid or if there are multiple options still availabl
 | `instance`   | `str`       | Optional. Only needed if the cluster has multiple GPU instances                                       |
 | `cpus`       | `int`       | Optional. Typically not used other than for debugging small deployments.                              |
 | `nodes`      | `int`       | Optional. Alternative to `gpus` - typically there are 8 GPUs per node                                 |
-| `node_names` | 'List[str]` | Optional. Names of the nodes to use in the run. You can find these via `mcli describe cluster <name>` |
+| `node_names` | `List[str]` | Optional. Names of the nodes to use in the run. You can find these via `mcli describe cluster <name>` |
 
 You can read more about managing your available compute [here](#managing-compute).
 
@@ -129,6 +107,7 @@ We automatically set the following environment variables in your run container.
 | `NUM_NODES`         | The total number of nodes the run is scheduled on                                                        |
 | `LOCAL_WORLD_SIZE`  | The number of GPUs available to the run on each node                                                     |
 
+(mcli/run_commands/index:environment)=
 #### Create your own Environment Variables
 To add non-sensitive environment variables, use the `env_variables` field in your YAML:
 
@@ -150,7 +129,7 @@ We support both MLflow and WandB as experiment trackers to monitor and visualize
 Provide the full path for the experiment, including the experiment name. In Databricks Managed MLflow, this will be a workspace path resembling
 `/Users/example@domain.com/my_experiment`. You can also provide a `model_registry_path` for model deployment. Make sure to configure your [Databricks secret](../getting_started/secrets.md#databricks).
 
-```{code-block} yaml
+```yaml
 experiment_tracker:
   mlflow:
     experiment_path: /Users/example@domain.com/my_experiment
@@ -161,7 +140,7 @@ experiment_tracker:
 #### Weights & Biases
 Include both project name and entity name in your configuration, and make sure to set up your [WandB secret](../getting_started/secrets.md#weights--biases).
 
-```{code-block} yaml
+```yaml
 experiment_tracker:
   wandb:
     project: my-project
@@ -181,11 +160,9 @@ metadata:
   run_type: test
 ```
 
-Metadata on your run is readable through the CLI or SDK:
+Metadata on your run is readable through the CLI:
 
-````{tab-set-code}
-
-```{code-block} bash
+```bash
 > mcli describe run hello-world-VC5nFs
 Run Details
 Run Name      hello-world-VC5nFs
@@ -194,28 +171,6 @@ Image         bash
 Run Metadata
 KEY         VALUE
 run_type    test
-```
-
-```{code-block} python
-from mcli import get_run
-
-run = get_run('hello-world-VC5nFs')
-print(run.metadata)
-# {"run_type": "test"}
-```
-````
-
-You can also update metadata when the run is running, which can be helpful for exporting metrics or information from the run:
-
-```python
-from mcli import update_run_metadata
-
-run = update_run_metadata("hello-world-VC5nFs", {"run_type": "test_but_updated"})
-print("New metadata values:", run.metadata)
-```
-
-```{admonition} Metadata size constraints
-Metadata is not intended for large amounts of data such as time series data. Each key is limited to 200 characters and value is limited to 0.1mb. Metadata cannot have more than 200 keys. A {class}`~mcli.MAPIException` will be raised on creation or updates if any of these limits are exceeded.
 ```
 
 ## Managing Compute

@@ -33,7 +33,7 @@ example2    environment
 example3    ssh
 ```
 
-As with all other secrets, `env` secrets will be injected into every one of your subsequent runs. If you are looking to inject non-sensitive environment variables into individual runs, specify them in your [run configuration](../submitting_run/index.md)
+As with all other secrets, `env` secrets will be injected into every one of your subsequent runs. If you are looking to inject non-sensitive environment variables into individual runs, specify them in your [run configuration](../run_commands/index.md)
 
 
 ## Mounted File
@@ -88,7 +88,7 @@ mcli create secret env SECRET_STUFF='super-secret-name2'
 ### Automatically mounted secrets
 
 Access to the Databricks Mosaic AI platform inside your run is automatically configured with your user's permissions. 
-You can use this to interact with the platform via the SDK or CLI.
+You can use this to interact with the platform via the CLI.
 For example, you can launch a run inside a run or make updates to the existing run.
 
 ## Available Secrets
@@ -155,9 +155,9 @@ s3 = boto3.client('s3', endpoint_url=os.environ['S3_ENDPOINT_URL'])
 
 ### CoreWeave Object Store
 
-CoreWeave uses an [s3-compatible](https://docs.coreweave.com/storage/object-storage) storage system. This allows developers to CRUD from their CoreWeave blob stores with AWS CLIs and SDKs. In practice, a CoreWeave integration feels very much like an s3 integration.
+CoreWeave uses an [s3-compatible](https://docs.coreweave.com/docs/products/storage) storage system. This allows developers to CRUD from their CoreWeave blob stores with AWS CLIs and SDKs. In practice, a CoreWeave integration feels very much like an s3 integration.
 
-First, follow [these instructions](https://docs.coreweave.com/storage/object-storage) to create a token 
+First, follow [these instructions](https://docs.coreweave.com/docs/products/storage/object-storage/how-to/manage-api-access-tokens) to create a token 
 configuration file. The file should look like this:
 
 ```bash
@@ -290,6 +290,7 @@ Databricks current user info:
 }
 ```
 
+(mcli/getting_started/secrets:docker)=
 ### Docker
 
 While we maintain a set of public docker images for [PyTorch](https://hub.docker.com/r/mosaicml/pytorch), [PyTorch Vision](https://hub.docker.com/r/mosaicml/pytorch_vision), and [Composer](https://hub.docker.com/r/mosaicml/composer) on DockerHub that we encourage you to use and can be access using the `image` field in your YAML file or with Python, to pull from private Docker registries, use the `docker` secret:
@@ -428,6 +429,7 @@ import os
 driver = GoogleStorageDriver(key=os.environ['GCS_KEY'], secret=os.environ['GCS_SECRET'],...)
 ```
 
+(mcli/run_commands/integrations:github)=
 ### Github
 
 Github SSH secrets will give you access to a private Github repository within the runtime environment.
