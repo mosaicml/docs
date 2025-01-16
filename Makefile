@@ -33,9 +33,7 @@ clean: clean-py clean-venv
 
 docs: clean-py venv
 	rm -rf .cache dist build
-	@. $(VENV_FOLDER)/bin/activate && \
-	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	cd $(BUILDDIR)/html && python3 -m http.server
+	@. $(VENV_FOLDER)/bin/activate && python localhost.py
 
 venv:
 	@if [ ! -d "$(VENV_FOLDER)" ]; then \

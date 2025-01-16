@@ -25,6 +25,7 @@ The `--tmux` argument is _strongly recommended_ to allow your session to persist
 
 Note that interactive runs act like normal runs:
 
+````{tab-set-code}
 ```bash
 # see interactive runs on the cluster
 mcli util <cluster-name>
@@ -40,7 +41,22 @@ mcli stop run <interactive-run-name>
 
 # delete it
 mcli delete run <interactive-run-name>
+```python
+from mcli import get_run, get_cluster
+# see interactive runs on the cluster
+cluster = get_cluster('cluster-name'):
+print("Active runs in:", cluster.name)
+for run in cluster.utilization.active_runs_by_user:
+    print(run.run_name, run.user)
+# get your interactive run
+run = get_run("interactive-run-name")
+print(run)
+# stop your interactive run early
+run.stop()
+# delete it
+run.delete()
 ```
+````
 
 <details>
   <summary>Full documentation for the interactive command</summary>

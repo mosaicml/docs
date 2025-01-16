@@ -1,13 +1,13 @@
-
 # Configure a run
 
 Our custom code training product gives you full customization for you to configure and run training jobs, powered by customized YAML files. This section will walk you through how to prepare your system and your YAML file to prepare to train. 
 
 ## A quick example
 
-Here is a brief example of a YAML file used to custom train a model on a dataset. You can submit this run using `mcli submit run -f hello_composer.yaml`:
+Here is a brief example of a YAML file and the Python SDK used to custom train a model on a dataset. You can submit this run using `mcli submit run -f hello_composer.yaml`:
 
-```yaml
+````{tab-set-code}
+```{code-block} yaml
 name: hello-composer
 image: mosaicml/pytorch:latest
 command: 'echo $MESSAGE'
@@ -23,10 +23,29 @@ integrations:
 env_variables:
   MESSAGE: "hello composer!"
 ```
+```{code-block} python
+from mcli import RunConfig
+config = RunConfig(
+    name='hello-composer',
+    image='mosaicml/pytorch:latest',
+    command='echo $MESSAGE',
+    compute={'gpus': 0},
+    scheduling={'priority': 'low'},
+    integrations=[
+        {
+         'integration_type': 'git_repo',
+         'git_repo': 'mosaicml/composer',
+         'git_branch': 'main'
+        }
+    ],
+    env_variables={'MESSAGE': 'hello composer!'},
+)
+```
+````
 
 ## Configure a custom code training run
 
-Run submissions to the Databricks Mosaic AI training platform can be configured through a YAML file.
+Run submissions to the Databricks Mosaic AI training platform can be configured through a YAML file or using our Python SDK's {class}`~mcli.RunConfig` class. The fields are identical across both methods:
 
 | Field                | Required | Type                                              | Description                                                                                                                                                                                                                           |
 | -------------------- | -------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -44,7 +63,7 @@ Run submissions to the Databricks Mosaic AI training platform can be configured 
 ## Additional information about fields
 
 ### Image Field
-Images on [DockerHub](https://hub.docker.com) can be configured as `<organization>/<image name>`. While we maintain a set of public docker images for [PyTorch](https://hub.docker.com/r/mosaicml/pytorch), [PyTorch Vision](https://hub.docker.com/r/mosaicml/pytorch_vision), and [Composer](https://hub.docker.com/r/mosaicml/composer) on DockerHub that we encourage you to use and can be access using this `image` field in your YAML file, to pull from private Docker registries, use the [`docker` secret](../getting_started/secrets.md#docker). 
+Images on [DockerHub](https://hub.docker.com) can be configured as `<organization>/<image name>`. While we maintain a set of public docker images for [PyTorch](https://hub.docker.com/r/mosaicml/pytorch), [PyTorch Vision](https://hub.docker.com/r/mosaicml/pytorch_vision), and [Composer](https://hub.docker.com/r/mosaicml/composer) on DockerHub that we encourage you to use and can be access using this `image` field in your YAML file or with Python, to pull from private Docker registries, use the [`docker` secret](../getting_started/secrets.md#docker). 
 
 Note that while we default to DockerHub, custom registries are supported, see [Docker's documentation](https://docs.docker.com/engine/reference/commandline/pull/#pull-from-a-different-registry) and [Docker Secret Page](../getting_started/secrets.md#docker) for more details.
 
@@ -171,6 +190,24 @@ Image         bash
 Run Metadata
 KEY         VALUE
 run_type    test
+```
+```{code-block} python
+from mcli import get_run
+run = get_run('hello-world-VC5nFs')
+print(run.metadata)
+# {"run_type": "test"}
+```
+
+You can also update metadata when the run is running, which can be helpful for exporting metrics or information from the run:
+
+```python
+from mcli import update_run_metadata
+run = update_run_metadata("hello-world-VC5nFs", {"run_type": "test_but_updated"})
+print("New metadata values:", run.metadata)
+```
+
+```{admonition} Metadata size constraints
+Metadata is not intended for large amounts of data such as time series data. Each key is limited to 200 characters and value is limited to 0.1mb. Metadata cannot have more than 200 keys. A {class}`~mcli.MAPIException` will be raised on creation or updates if any of these limits are exceeded.
 ```
 
 ## Managing Compute

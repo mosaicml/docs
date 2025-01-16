@@ -18,11 +18,11 @@ Reference Documentation
 
     .. grid-item::
     
-        .. card:: Mosaic AI CLI
+        .. card:: Mosaic AI CLI and SDK
             :link: mcli
             :class-footer: sd-font-italic
 
-            Command Line Interface (CLI)
+            Command Line Interface (CLI) and Python SDK
 
     .. grid-item::
     
@@ -60,8 +60,6 @@ Reference Documentation
    :caption: Mosaic AI
    :maxdepth: 2
    :hidden:
-
-   quickstart.md
 
    mcli/index.rst
    composer/index.rst

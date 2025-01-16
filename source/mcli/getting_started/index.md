@@ -50,7 +50,7 @@ A cluster is one or more nodes with the same type of GPU (e.g. H100-80GB) residi
   2. **Reserved Cluster:** Reserved clusters are dedicated 24x7 to a single customer and fully managed by Databricks.
 
 ### What are Runs?
-Runs are model training jobs. When you submit a run, the Databricks Mosaic AI Training Platform will request resources from the cluster. The status of a run can be managed through MCLI, including creation, following, getting, and stopping the run.
+Runs are model training jobs. When you submit a run, the Databricks Mosaic AI Training Platform will request resources from the cluster. The status of a run can be managed through MCLI or the Python SDK, including creation, following, getting, and stopping the run.
 
 #### What is the Run Lifecycle?
 | Run Status  | Details                                                                                                                                                                                                |

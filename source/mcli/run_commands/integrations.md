@@ -265,11 +265,25 @@ This integration only sets up the environment, the logger itself must still be c
 This section will explain how to use MLflow for a run. To use this integration, set up your credentials with the [`databricks` secret](../getting_started/secrets.md#databricks).
 To use MLflow experiment tracking in a run, include the MLflow integration in your run config:
 
-```yaml
+````{tab-set-code}
+```{code-block} yaml
 integrations:
   - integration_type: mlflow
     experiment_name: /Users/example@domain.com/my_experiment
 ```
+```{code-block} python
+from mcli import RunConfig
+config = RunConfig(
+    ...
+    integrations=[
+        {
+         'integration_type': 'mlflow',
+         'experiment_name': '/Users/example@domain.com/my_experiment',
+        }
+    ],
+)
+```
+````
 
 - `experiment_name` (str, required): The name to use for the experiment. Databricks MLflow users see [this page](https://docs.databricks.com/en/mlflow/experiments.html) for more information about experiment and workspace organization (example Databricks experiment name: `/Users/<email>/<experiment_name>`).
 - `tracking_uri` (str, optional): Default is `databricks` , e.g. managed MLflow through Databricks
@@ -280,13 +294,29 @@ integrations:
 You do not have to have a Databricks managed MLflow account to use MLflow, however your run will be responsible for uploading the MLflow artifacts before the run terminates. 
 See the [MLflow documentation](https://mlflow.org/docs/latest/tracking.html) for options
 
-```yaml
+````{tab-set-code}
+```{code-block} yaml
 integrations:
   - integration_type: mlflow
     experiment_name: my_experiment
     # See MLflow docs for all tracking_uri alternatives
     tracking_uri: file:/my/local/dir
 ```
+
+```{code-block} python
+from mcli import RunConfig
+config = RunConfig(
+    ...
+    integrations=[
+        {
+         'integration_type': 'mlflow',
+         'experiment_name': 'my_experiment',
+         'tracking_uri': 'file:/my/local/dir',  # See MLflow docs for all alternatives
+        }
+    ],
+)
+```
+````
 
 </details>
 

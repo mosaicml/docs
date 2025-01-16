@@ -88,7 +88,7 @@ mcli create secret env SECRET_STUFF='super-secret-name2'
 ### Automatically mounted secrets
 
 Access to the Databricks Mosaic AI platform inside your run is automatically configured with your user's permissions. 
-You can use this to interact with the platform via the CLI.
+You can use this to interact with the platform via the CLI or SDK.
 For example, you can launch a run inside a run or make updates to the existing run.
 
 ## Available Secrets
