@@ -1,6 +1,6 @@
 .. MCLI documentation master file
 
-Mosaic AI CLI and SDK
+Mosaic AI Training
 ================================
 
 Databricks Mosaic AI Training enables Databricks customers to get started with custom code training with just a few simple steps. This offering is a separate SKU from other Generative AI offerings at Databricks, and requires access to the `Mosaic AI Training platform
@@ -19,6 +19,7 @@ Contents
 .. toctree::
    :maxdepth: 1
 
+   quickstart.md
    getting_started/index
    run_commands/index
    submitting_run/index

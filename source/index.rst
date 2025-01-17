@@ -1,20 +1,5 @@
 .. Mosaic documentation master file
 
-.. toctree::
-   :caption: Mosaic AI
-   :maxdepth: 1
-   :hidden:
-
-   quickstart.md
-
-   mcli/index.rst
-   composer/index.rst
-   streaming/index.rst
-
-   faq.md
-
-
-
 Mosaic AI Training
 ================================
 
@@ -70,6 +55,17 @@ Reference Documentation
             :class-footer: sd-font-italic
 
             MegaBlocks is a light-weight library for mixture-of-experts (MoE) training. The core of the system is efficient "dropless-MoE" and standard MoE layers.
+
+.. toctree::
+   :caption: Mosaic AI
+   :maxdepth: 2
+   :hidden:
+
+   mcli/index.rst
+   composer/index.rst
+   streaming/index.rst
+
+   faq.md
 
 
 .. _Twitter: https://twitter.com/DbrxMosaicAI

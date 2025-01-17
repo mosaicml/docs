@@ -1,6 +1,6 @@
 # for building docs locally
 furo==2024.8.6
-mosaicml-cli==0.7.2
+mosaicml-cli
 myst-parser==4.0.0
 Sphinx==7.4.7
 sphinx-argparse==0.5.2

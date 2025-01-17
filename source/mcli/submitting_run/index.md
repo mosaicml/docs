@@ -1,6 +1,6 @@
 # Run commands
 
-Runs can be managed through the Python API or using MCLI. 
+Runs can be managed through the Python SDK or using MCLI.
 Below outlines how to work with runs, including creation, following, getting, stopping, and deleting runs.
 All CLI commands come with a `--help` flag that includes detailed instructions on arguments needed and additional options
 
@@ -31,7 +31,23 @@ All CLI commands come with a `--help` flag that includes detailed instructions o
 | `mcli diff run <name> <name>`         | n/a                 | Compare the configuration of two runs                                                              |
 | `mcli connect <name>`                 | n/a                 | Connect to the container of any running run                                                        |
 
-Note: the run management commands will work whether you created your run using `mcli run`, `mcli train`, or `mcli finetune`.
+Note: the run management commands will work whether you created your run using `mcli run` or `mcli train`.
+
+## Managing a run
+
+| CLI Command | Description |
+| ----------- | ----------- |
+| `mcli get runs` | List the last 50 runs you have submitted |
+| `mcli get runs --user name@email.com` | List all runs for a user in your organization. Works only if "Shared runs" are enabled |
+| `mcli describe run <name>` | Get detailed information about a run, including the config that was used and run events |
+| `mcli logs <name>` | Retrieve the latest console log of the indicated run |
+| `mcli logs <name> --resumption <N>` | Retrieve the console log for a given resumption of the indicated run |
+| `mcli stop run <name>` | Stop the provided run |
+| `mcli delete run <name>` | Delete the run and its associated logs from the cluster |
+| `mcli update run <name>` | Update run scheduling parameters, like the max time that a run can run for |
+| `mcli watchdog <name>` | Turn on [`Watchdog`](#enabling-watchdog) for automatic retries |
+| `mcli diff run <name> <name>` | Compare the configuration of two runs |
+| `mcli connect <name>` | Connect to the container of any running run |
 
 ## Enabling Watchdog
 When training large models across many nodes, inevitably some nodes may fail over time due to hardware issues
@@ -85,10 +101,6 @@ A full end-to-end example is available in the [Composer Autoresume documentation
 Interactive runs give the ability to debug and iterate quickly inside your cluster in a secure way. Interactivity works on top of the existing MosaicML runs, so before connecting a run workload needs to be submitted to the cluster. For security purposes storage is not persisted, so we recommend using your own cloud storage and git repositories to stream and save data between runs.
 
 More details can be found on our [Interactive Runs](https://docs.mosaicml.com/projects/mcli/en/latest/training/interactive.html) page. 
-
-## Dependent Deployments
-
-Dependent Deployments is a framework that allows you to configure a sidecar image inside a training run. This can be useful for tasks such as batch inference or evaluation that require an inference engine for efficient generation and orchestrating large amounts of GPUs. Read our [Dependent Deployments](https://docs.mosaicml.com/projects/mcli/en/latest/training/depdeps.html) documentation for more information. 
 
 ```{toctree}
 :maxdepth: 2

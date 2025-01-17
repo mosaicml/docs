@@ -20,22 +20,22 @@ A cluster is one or more nodes with the same type of GPU (e.g. A100-40GB) residi
   2. **Reserved Cluster:** Reserved cluster's resources are dedicated 24x7 to a single customer and fully managed by MosaicML.
   3. **3rd Party (3P) Cluster:** 3rd Party clusters are dedicated to and managed by the customer and their chosen cloud provider such as AWS or CoreWeave. The nodes in the cluster are dedicated to running MosaicML workloads, and are orchestrated by the MosaicML platform.  
 
-Runs are model training jobs. When you submit a run, the MosaicML platform will request resources from the cluster. If none of the requested resources are available, the run will be queued. To learn more about clusters see the [Managing Compute](https://docs.mosaicml.com/projects/mcli/en/latest/quick_start/managing_clusters.html) page. For detailed run information, see the [Configure a run](https://docs.mosaicml.com/projects/mcli/en/latest/training/yaml_schema.html) page.
+Runs are model training jobs. When you submit a run, the MosaicML platform will request resources from the cluster. If none of the requested resources are available, the run will be queued. For detailed run information, see the [Configure a run](mcli/run_commands/index.md) page.
 
 ## Is using Composer required in order to train a model on the MosaicML platform?
-No, Composer is not required. You can use any training framework, and more broadly speaking the MosaicML platform can deploy any Docker image as long as it has all the required system packages for your code. For more information, see the [Docker documentation](https://docs.docker.com/) and the [MosaicML Docker guide](https://docs.mosaicml.com/projects/mcli/en/latest/resources/secrets/docker.html).
+No, Composer is not required. You can use any training framework, and more broadly speaking the MosaicML platform can deploy any Docker image as long as it has all the required system packages for your code. For more information, see the [Docker documentation](https://docs.docker.com/) and the {ref}`Docker Guide <mcli/getting_started/secrets:docker>`.
 
 ## How do I configure my training run to access private GitHub repositories, Docker images, S3, Weights & Biases, etc.?
-To access private GitHub repositories, Docker images, or other integrations, you may need to provide secrets. Secrets are kept securely in the MosaicML platform and are available across your clusters. For more details, see the [Secrets Page](https://docs.mosaicml.com/projects/mcli/en/latest/resources/secrets/).
+To access private GitHub repositories, Docker images, or other integrations, you may need to provide secrets. Secrets are kept securely in the MosaicML platform and are available across your clusters. For more details, see the [Secrets Page](mcli/getting_started/secrets).
 
 ## How do I set up an environment in MosaicML platform to run my code?
-Setting up the environment in MosaicML platform is straightforward and easily configurable. We'll automatically set up environment variables in your run container. To add other environment variables, use the `env_variable` field in the YAML file. For more information, see the [Environment Setup guide](https://docs.mosaicml.com/projects/mcli/en/latest/quick_start/environment.html).
+Setting up the environment in MosaicML platform is straightforward and easily configurable. We'll automatically set up environment variables in your run container. To add other environment variables, use the `env_variable` field in the YAML file. For more information, see the {ref}`Environment Setup guide <mcli/run_commands/index:environment>`.
 
 ## What are the supported MosaicML integrations?
 MosaicML platform supports various integrations, such as Git repositories, APT packages, Pip packages, and Weights & Biases. For more information, see the following pages:
 
-- [Git Repo Page](https://docs.mosaicml.com/projects/mcli/en/latest/resources/integrations/git.html)
-- [Apt Packages Page](https://docs.mosaicml.com/projects/mcli/en/latest/resources/integrations/system_dependencies.html)
-- [CometML](https://docs.mosaicml.com/projects/mcli/en/latest/resources/integrations/comet.html)
-- [PyPI Packages](https://docs.mosaicml.com/projects/mcli/en/latest/resources/integrations/pypi.html)
-- [WandB Packages Page](https://docs.mosaicml.com/projects/mcli/en/latest/resources/secrets/wandb.html)
+- {ref}`Git Repo Page <mcli/run_commands/integrations:github>`
+- {ref}`APT Packages <mcli/run_commands/integrations:apt-packages>`
+- {ref}`CometML <mcli/run_commands/integrations:cometml>`
+- {ref}`PyPI Packages <mcli/run_commands/integrations:pypi-packages>`
+- {ref}`Weights & Biases <mcli/run_commands/integrations:weights-and-biases>`
